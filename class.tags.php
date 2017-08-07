@@ -5,25 +5,22 @@
 	 * @version  1.0
 	 * @copyright GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
 	 */
-	trait Common {
-		/**
-		 * Used in return message
-		 */
-		private $message;
+	trait CommonMethodsForTags {
 		/**
 		 * Used in setLink() method
 		 * @var str $link
 		 */
-		protected $link;
+		private $message;
 		/**
 		 * Used in content link
 		 * @var str $content
 		 */
-		protected $content;
+		protected $link;
 		/**
 		 * Set link in href="" and src="" attribute
 		 * @param $link
 		 */
+		protected $content;
 		/**
 		 * Used in inline css style
 		 * @var str $style
@@ -83,7 +80,7 @@
 	}
 	class Tags {
 		// Usage `Common` trait
-		use Common;
+		use CommonMethodsForTags;
 		/**
 		 * Target attribute array
 		 * @var array $target
@@ -95,6 +92,18 @@
 		 */
 
 		protected $desc;
+
+		/**
+		 * Name of `rel` attribute in <link>
+		 * @var str $rel
+		 */
+		private $rel;
+		
+		/**
+		 * Title page
+		 * @vat str $title
+		 */
+		private $title;
 		
 		/**
 		 * Set visible part of the link
@@ -134,6 +143,35 @@
 			return $this->desc;
 		}
 		/**
+		 * Set `rel` attribute in <link>
+		 * @param str $rel
+		 */
+		public function setRel($rel) {
+			return $this->rel = $rel;
+		}
+		/**
+		 * Get `rel` attribute from <link>
+		 * @return $this
+		 */
+		public function getRel() {
+			return $this->rel;
+		}
+		/**
+		 * Set title in the browser bar
+		 * @param str $title
+		 */
+		public function setTitle($title) {
+			return $this->title = $title;
+		}
+
+		/**
+		 * Get title from the browset bar
+		 * @return $this
+		 */
+		public function getTitle() {
+			return $this->title;
+		}
+		/**
 		 * Url method
 		 * @param  str $link - Your link
 		 * @param  str $content - Visible link text.
@@ -160,6 +198,7 @@
 	        } 
 	        return $this->message;
 	    }
+	    
 		/**
 		 * Image method
 		 * @param  str $link - Your link to image
@@ -173,4 +212,28 @@
 			$this->message = '<img style="'.$this->setStyle($style).'" class="'.$this->setClass($class).'" id="'.$this->setId($id).'" src="'.$this->setLink($link).'" alt="'.$this->setDesc($desc).'"/>';
 			return $this->message; $this->link; $this->desc;
 		}
+
+		# # # # # # # # # # # # # # # # Dynamically attaching head section tags # # # # # # # # # # # # # # # #
+
+		/**
+		 * <link> tag in HTML
+		 * @param str $rel
+		 * @param str $link
+		 * @return $this
+		 */
+		public function link($rel, $link) {
+			$this->message = '<link rel="'.$this->setRel($rel).'" href="'.$this->setLink($link).'">';
+			return $this->message;
+		}
+
+		/**
+		 * <title> tag in HTML
+		 * @param $title
+		 * @return $this
+		 */
+		public function title($title) {
+			$this->message = '<title>'.$this->setTitle($title).'</title>';
+			return $this->message;
+		}
 	}
+	$tags = new Tags;
