@@ -1,5 +1,5 @@
 <?php error_reporting(E_ALL); ini_set('display_errors', 1);	?>
-<?php require_once 'class.tags.php'; ?>
+<?php require_once 'class.Tags.php'; ?>
 <!DOCTYPE html>
 <html>
 <head>
