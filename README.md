@@ -12,6 +12,14 @@ $foo->url(url_adres[str], text_inside_link[str], target[int], style[str, optiona
 ```php
 $foo->image(url_adres[str], alt[str] ,style[str, optional], class[str, optional], id[str, optional]);
 ```
+### link() method
+```php
+$foo->link(rel[str], href[str]);
+```
+### title() method
+```php
+$foo->link(title[str]);
+```
 # How use this?
 #### Include this class by e.g `include` function from PHP.
 #### Next you can use this copy of the class:
